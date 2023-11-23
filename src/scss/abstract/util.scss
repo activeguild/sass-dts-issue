@@ -1,0 +1,62 @@
+@use 'sass:math';
+
+@function to-rem($value) {
+  @return math.div($value, 16) + rem;
+}
+
+@mixin focus-visible() {
+  @supports selector(:focus-visible) {
+    &:focus-visible {
+      @content;
+    }
+  }
+
+  @supports not selector(:focus-visible) {
+    &:focus {
+      @content;
+    }
+  }
+}
+
+@mixin visually-hidden() {
+  position: absolute;
+
+  overflow: hidden;
+
+  width: 1px;
+  height: 1px;
+
+  white-space: nowrap;
+
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+/**
+ * Use this mixin to declare a set of CSS Custom Properties.
+ * The variables in $css_variables will be properly prefixed.
+ * The use of this mixin is encouraged to enable scalability.
+ *
+ * Usage:
+ *
+ * @include cssvars((
+ *  base-font-size: 65.5%,
+ *  font-family: #{"HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif},
+ * 
+ *  primary-color: #33b5e5,
+ *  secondary-color: #ff500a,
+ * ));
+ *
+ * Will result in
+ *
+ * root {
+ *    --prefix-var-name: value;
+ *    --prefix-var-name: value;
+ *    --prefix-var-name: value;
+ * }
+ *
+ */
+@mixin vars($css_variables, $prefix: acr) {
+  @each $name, $value in $css_variables {
+    --#{$prefix}-#{$name}: #{$value};
+  }
+}

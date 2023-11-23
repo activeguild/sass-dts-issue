@@ -1,0 +1,18 @@
+@use '@style/util';
+@use '@style/color';
+
+// Removing the line below solves the issue.
+@use '@style/placeholders';
+
+.btn {
+  --primary: #fc3;
+  all: unset;
+  border: 1px solid var(--primary);
+  background-color: var(--primary);
+  border-radius: 4px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    --primary: #fc1;
+  }
+}

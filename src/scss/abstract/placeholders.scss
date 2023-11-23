@@ -1,0 +1,79 @@
+@use '@style/color';
+@use '@style/util';
+@use '../variables/animations';
+
+%loader {
+  animation-delay: 100ms;
+
+  &::before,
+  &::after {
+    content: '';
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: util.to-rem(100);
+    height: util.to-rem(100);
+
+    opacity: 0;
+    border: util.to-rem(5) solid color.map(gray, 8);
+    border-radius: 50%;
+
+    animation: progress-pulsate 1000ms linear infinite;
+  }
+
+  &::before {
+    animation-delay: 600ms;
+  }
+
+  &::after {
+    animation-delay: 100ms;
+  }
+}
+
+%link-cta {
+  @include util.focus-visible {
+    color: color.map(gray, 8);
+    outline: util.to-rem(1) dotted color.map(gray, 7);
+  }
+
+  position: relative;
+
+  overflow: hidden;
+  display: inline-block;
+
+  max-width: 100%;
+  padding-bottom: util.to-rem(5);
+
+  font-size: util.to-rem(14);
+  font-weight: 700;
+  line-height: util.to-rem(30);
+  color: color.map(gray, 8);
+  text-decoration: none;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  letter-spacing: util.to-rem(1);
+  white-space: nowrap;
+
+  &::after {
+    content: '';
+
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    display: block;
+
+    border-top: util.to-rem(3) solid color.map(yellow, 5);
+  }
+
+  &:hover {
+    color: color.map(gray, 8);
+
+    &::after {
+      animation: link-cta-hover-animation 0.7s cubic-bezier(0.58, 0.3, 0.005, 1);
+    }
+  }
+}
